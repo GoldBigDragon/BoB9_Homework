@@ -23,8 +23,7 @@
   - 이메일 제목 : [BoB9 디포경연] PE Generator_[이름]
   - 제출사항 : 소스코드, 실행파일, 결과물 시연 영상
   - 평가요소 :  
-    ① 사용자로부터 입력 값(Entrypoint, ImageBase, Section Alignment, File Alignment)을 받아 실행가능한 PE파일(64bit)을 생성하는 프로그램을 만들어야한다. (60점)  
-      (import table등 없어도 됨. section table은 4개로 고정(text, data, rdata, rsrc))  
+    ① 사용자로부터 입력 값(Entrypoint, ImageBase, Section Alignment, File Alignment)을 받아 실행가능한 PE파일(64bit)을 생성하는 프로그램을 만들어야한다. (60점) (import table등 없어도 됨. section table은 4개로 고정(text, data, rdata, rsrc))  
     ② GUI로 제작할 것(20점)  
     ③ 랜덤 생성기능을 만들어서 사용자가 지정한 개수의 PE파일을 랜덤 한 이름으로 생성할 수 있도록 할 것.(20점) (사용자가 10개 설정하면 랜덤한 이름의 PE파일 10개 만들어지게 하기)  
   - 되도록 Python으로 작성할 것.
