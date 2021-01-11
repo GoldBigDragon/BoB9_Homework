@@ -1,7 +1,7 @@
 # 3차 교육 과제 목록
 ***
 `완료` `2021년 01월 12일 화요일 까지`  
-### snort(suricata) rule 파일을 제작하여 특정 사이트 트래픽을 탐지하기 - 이경문
+### Snort(Suricata) rule 파일 제작하기 - 이경문
   - 주제 : Snort(Suricata) rule 파일을 제작하여 특정 사이트 트래픽을 탐지하여라.
   - 메일 양식 : [bob9][포렌식]suricata-rule[김태룡]
   - test.rules 파일에 20개의 사이트를 탐지하는 룰을 만든다.
