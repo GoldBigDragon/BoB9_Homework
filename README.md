@@ -12,9 +12,19 @@
 ***
 `2021년 01월 14일 목요일 까지`  
 ### Cloud Breach 발표 준비 - Niko, 정승기
-  - 주제 : cloud breach관련 5분 발표 준비하기. (일반 BoB생들 앞에서 발표할 예정)
-  - 슬라이드는 영어로 작성하되 발표는 한국어로 해도 된다.
-  - 주제 정하고 나면 [주소](https://docs.google.com/spreadsheets/d/12uuadVE2W2zw6yC_XHbr4_JuEfQ3BeNdprTeaKPiCww/edit#gid=0 "AWS 강의 시트")의 K 컬럼에 적어두기
+  1. Cloud breach관련 5분 발표 준비하기. (일반 BoB생들 앞에서 발표할 예정)
+  - 주제 정하고 나면 [주소](https://docs.google.com/spreadsheets/d/12uuadVE2W2zw6yC_XHbr4_JuEfQ3BeNdprTeaKPiCww/edit#gid=0 "AWS 강의 시트")의 K 컬럼에 적어두기  
+  2. 슬라이드는 영어로 작성하되 발표는 한국어로 해도 된다.
+  3. 5분간 발표할 영문 자료를 2021.01.14. 까지 PDF로 [이 곳](https://drive.google.com/drive/u/1/folders/11qrCCHO5JymcboJUhBbsGvG9prNX-O2I "Google Drive")에 첨부한다.  
+  4. 2021.01.14. 5분간 한국어로 발표할 준비를 한다.  
+  5. 발표 자료에는 아래 내용이 포함되어야 한다.  
+    5.a. 공격 시나리오 설명  
+    5.b. 무엇이 잘못되었나?(취약점)  
+    5.c. 어떻게 발견되었나?  
+    5.d. 무엇을 강탈 당하였나?  
+    5.e. 보안팀은 어떻게 대응하였나?  
+    5.f. 어떻게 수정하였나?  
+  
 ***
 `2021년 02월 14일 일요일 까지`  
 ### PE Generator 만들기 - 최원영
