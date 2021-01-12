@@ -10,7 +10,7 @@
   - git에는 rules 파일과 fast.log 파일을 올릴 것.
   - 메일에는 코드 파일을 첨부하지 말고 git 주소만 알려줄 것.
 ***
-`진행 중` `2021년 01월 14일 목요일 까지`  
+`완료` `2021년 01월 14일 목요일 까지`  
 ### Cloud Breach 발표 준비 - Niko, 정승기
   1. Cloud breach관련 5분 발표 준비하기. (일반 BoB생들 앞에서 발표할 예정)
   - 주제 정하고 나면 [주소](https://docs.google.com/spreadsheets/d/12uuadVE2W2zw6yC_XHbr4_JuEfQ3BeNdprTeaKPiCww/edit#gid=0 "AWS 강의 시트")의 K 컬럼에 적어두기  
