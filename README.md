@@ -35,7 +35,7 @@
   - C드라이브 아래 hosts 파일을 읽고, 콘솔에 라인 별로 출력하기.  
   - nationalAnthem.txt를 읽고 출력하기. (주의 : 문자 집합이 ‘한국어’이므로 ef.SetCodePage(949)를 사용해야함)  
 ***
-`진행 중` `2021년 01월 21일 목요일 까지`
+`완료` `2021년 01월 21일 목요일 까지`
 ### Terraform 다루기 - Niko&정승기
   - Terraform 설치  
   - Terraform을 사용하여 EC2 서비스 생성  
