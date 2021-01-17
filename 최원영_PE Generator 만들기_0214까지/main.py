@@ -6,25 +6,41 @@ Created on Mon Jan 11 13:05:39 2021
 
 """
 DOS_HEADER = [77, 90, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 0, 0, 0]
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 0, 0, 0]
 DOS_STUB = [14, 31, 186, 14, 0, 180, 9, 205, 33, 184, 1, 76, 205, 33, 84, 104,
-           105, 115, 32, 112, 114, 111, 103, 114, 97, 109, 32, 99, 97, 110, 110, 111,
-           116, 32, 98, 101, 32, 114, 117, 110, 32, 105, 110, 32, 68, 79, 83, 32,
-           109, 111, 100, 101, 46, 13, 13, 10, 36, 0, 0, 0, 0, 0, 0, 0]
+105, 115, 32, 112, 114, 111, 103, 114, 97, 109, 32, 99, 97, 110, 110, 111,
+116, 32, 98, 101, 32, 114, 117, 110, 32, 105, 110, 32, 68, 79, 83, 32,
+109, 111, 100, 101, 46, 13, 13, 10, 36, 0, 0, 0, 0, 0, 0, 0]
 PE_HEADER = [80, 69, 0, 0, 76, 1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 224, 0, 3, 1]
-DATA_DIRECTORY = [0, 0, 16, 0, 0, 16, 0, 0, 0, 0, 16, 0, 0, 16, 0, 0, 
-                0, 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-                68, 37, 0, 0, 160, 0, 0, 0, 0, 64, 0, 0, 224, 1, 0, 0, 
-                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-                0, 0, 0, 0, 0, 0, 0, 0, 16, 33, 0, 0, 112, 0, 0, 0, 
-                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-                0, 0, 0, 0, 0, 0, 0, 0, 128, 33, 0, 0, 64, 0, 0, 0, 
-                0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 0, 0, 192, 0, 0, 0, 
-                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-                0, 0, 0, 0, 0, 0, 0, 0]
+0, 0, 0, 0, 224, 0, 3, 1]
+OPTIONAL_HEADER = [11, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+179, 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 64, 0, 
+0, 16, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+6, 0, 0, 0, 0, 0, 0, 0, 0, 80, 0, 0, 0, 4, 0, 0, 
+0, 0, 0, 0, 3, 0, 0, 129, 0, 0, 16, 0, 0, 16, 0, 0, 
+0, 0, 16, 0, 0, 16, 0, 0, 0, 0, 0, 0, 16, 0, 0, 0]
+DATA_DIRECTORY = [0, 0, 0, 0, 0, 0, 0, 0, 68, 37, 0, 0, 160, 0, 0, 0, 
+0, 64, 0, 0, 224, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+16, 33, 0, 0, 112, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+128, 33, 0, 0, 64, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+0, 32, 0, 0, 192, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+SECTION_TABLE = [46, 116, 101, 120, 116, 0, 0, 0, 151, 12, 0, 0, 0, 16, 0, 0,
+0, 14, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+0, 0, 0, 0, 32, 0, 0, 96, 
+46, 114, 100, 97, 116, 97, 0, 0, 160, 10, 0, 0, 0, 32, 0, 0,
+0, 12, 0, 0, 0, 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+0, 0, 0, 0, 64, 0, 0, 64,
+46, 100, 97, 116, 97, 0, 0, 0, 136, 3, 0, 0, 0, 48, 0, 0,
+0, 2, 0, 0, 0, 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+0, 0, 0, 0, 64, 0, 0, 192,
+46, 114, 115, 114, 99, 0, 0, 0, 224, 1, 0, 0, 0, 64, 0, 0,
+0, 2, 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+0, 0, 0, 0, 64, 0, 0, 64]
 TEXT = [184, 128, 51, 64, 0, 195, 204, 204, 204, 204, 204, 204, 204, 204, 204, 204, 
 85, 139, 236, 86, 139, 117, 8, 106, 1, 255, 21, 176, 32, 64, 0, 131, 
 196, 4, 141, 77, 12, 81, 106, 0, 86, 80, 232, 209, 255, 255, 255, 255, 
@@ -226,7 +242,7 @@ TEXT = [184, 128, 51, 64, 0, 195, 204, 204, 204, 204, 204, 204, 204, 204, 204, 2
 42, 169, 8, 4, 0, 0, 117, 7, 184, 145, 0, 0, 192, 201, 195, 169, 
 16, 8, 0, 0, 117, 7, 184, 147, 0, 0, 192, 201, 195, 169, 32, 16, 
 0, 0, 117, 14, 184, 143, 0, 0, 192, 201, 195, 184, 144, 0, 0, 192, 
-201, 195, 139, 69, 8, 201, 195, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+201, 195, 139, 69, 8, 201, 195]
 
 RDATA = [36, 42, 0, 0, 146, 41, 0, 0, 176, 41, 0, 0, 126, 42, 0, 0, 
 106, 42, 0, 0, 84, 42, 0, 0, 58, 42, 0, 0, 118, 41, 0, 0, 
@@ -397,17 +413,9 @@ RDATA = [36, 42, 0, 0, 146, 41, 0, 0, 176, 41, 0, 0, 126, 42, 0, 0,
 83, 76, 105, 115, 116, 72, 101, 97, 100, 0, 127, 3, 73, 115, 68, 101, 
 98, 117, 103, 103, 101, 114, 80, 114, 101, 115, 101, 110, 116, 0, 120, 2, 
 71, 101, 116, 77, 111, 100, 117, 108, 101, 72, 97, 110, 100, 108, 101, 87, 
-0, 0, 75, 69, 82, 78, 69, 76, 51, 50, 46, 100, 108, 108, 0, 0]
+0, 0, 75, 69, 82, 78, 69, 76, 51, 50, 46, 100, 108, 108]
 DATA = [177, 25, 191, 68, 78, 230, 64, 187, 255, 255, 255, 255, 1, 0, 0, 0, 
-1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+1, 0, 0, 0, 1]
 RSRC = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 
 24, 0, 0, 0, 24, 0, 0, 128, 0, 0, 0, 0, 0, 0, 0, 0, 
 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 48, 0, 0, 128, 
@@ -437,11 +445,9 @@ RSRC = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
 101, 100, 80, 114, 105, 118, 105, 108, 101, 103, 101, 115, 62, 13, 10, 32, 
 32, 32, 32, 60, 47, 115, 101, 99, 117, 114, 105, 116, 121, 62, 13, 10, 
 32, 32, 60, 47, 116, 114, 117, 115, 116, 73, 110, 102, 111, 62, 13, 10, 
-60, 47, 97, 115, 115, 101, 109, 98, 108, 121, 62, 13, 10, 0, 0, 0, 
-0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-#크기 못 미칠 경우, 뒤에 0 붙여주기
+60, 47, 97, 115, 115, 101, 109, 98, 108, 121, 62, 13, 10]
 
+# 해당 파일을 바이너리 형태로 출력 해 주는 함수 (코드 생성용)
 def cropBinaryArea(filename):
     buffer = ''
     counter = 0
@@ -456,53 +462,7 @@ def cropBinaryArea(filename):
           byte = f.read(1)
     print(buffer.replace(' 00,', ' 0,').replace('\n00,', '\n0,'))
 
-def getOptionalHeader(entryPoint, imageBase, sectionAlignment, fileAlignment):
-    prefix = [11, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    # text위치 + 180
-    prefix += getHexArray(entryPoint)
-    prefix += [0, 0, 0, 0, 0, 0, 0, 0]
-    prefix += getHexArray(imageBase)
-    prefix += getHexArray(sectionAlignment)
-    prefix += getHexArray(fileAlignment)
-    prefix += [0, 2, 0, 0]
-    suffix = [0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0,
-              0, 80, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 3, 0, 0, 129]
-    return bytearray(prefix+suffix)
-
-def getSectionTable(sectionAlignment, sectionType, startAddress):
-    returnArray = None
-    # prefix
-    if sectionType == 'TEXT':
-        returnArray = [46, 116, 101, 120, 116, 0, 0, 0, 151, 12, 0, 0, 0, 16, 0, 0, 0, 14, 0, 0]
-    elif sectionType == 'RDATA':
-        returnArray = [46, 114, 100, 97, 116, 97, 0, 0, 160, 10, 0, 0, 0, 32, 0, 0, 0, 12, 0, 0]
-    elif sectionType == 'DATA':
-        returnArray = [46, 100, 97, 116, 97, 0, 0, 0, 136, 3, 0, 0, 0, 48, 0, 0, 0, 2, 0, 0]
-    elif sectionType == 'RSRC':
-        returnArray = [46, 114, 115, 114, 99, 0, 0, 0, 224, 1, 0, 0, 0, 64, 0, 0, 0, 2, 0, 0]
-        
-    # address
-    if sectionType == 'TEXT':
-        returnArray += [0, 4, 0, 0]
-    elif sectionType == 'RDATA':
-        returnArray += [0, 18, 0, 0]
-    elif sectionType == 'DATA':
-        returnArray += [0, 30, 0, 0]
-    elif sectionType == 'RSRC':
-        returnArray += [0, 32, 0, 0]
-    
-    # suffix
-    if sectionType == 'TEXT':
-        returnArray += [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 0, 0, 96]
-    elif sectionType == 'RDATA':
-        returnArray += [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 64, 0, 0, 64]
-    elif sectionType == 'DATA':
-        returnArray += [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 64, 0, 0, 192]
-    elif sectionType == 'RSRC':
-        returnArray += [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 64, 0, 0, 64]
-    
-    return bytearray(returnArray)
-
+# 10진수를 16진수로 리틀엔디언으로 변환 해 주는 함수
 def getHexArray(value):
     hexString = '{:08x}'.format(value)
     returnArray = []
@@ -518,39 +478,113 @@ def getHexArray(value):
     returnArray.reverse()
     return returnArray
 
-def getPadding(size):
-    suffix = []
-    for i in range(size):
-      suffix += [0]
-    return suffix
+def getLacking(length, alignment):
+    if length < alignment:
+      return alignment-length
+    elif length > alignment:
+      mok = int(length / alignment)
+      if length % alignment != 0:
+        mok += 1
+      return (alignment*mok)-length
+    else:
+      return 0
 
+# Alignment를 기준으로 입력한 Array에 패딩을 추가하는 함수
+def getPadding(targetArray, alignment):
+    targetLength = len(targetArray)
+    for i in range(getLacking(targetLength, alignment)):
+      targetArray += [0]
+    return targetArray
+
+def setSuccessText():
+    text = [83, 85, 67, 67, 69, 83, 83, 33, 33, 33]
+    for i in range(10):
+        RDATA[248+i] = text[i]
+    
+def setFailText():
+    text = [84, 82, 89, 32, 65, 71, 65, 73, 78, 33]
+    for i in range(10):
+        RDATA[248+i] = text[i]
+        
+def applyOptions(header, entryPoint, imageBase, sectionAlignment, fileAlignment):
+    entryImportVirtualAddressArray = []
+    entryResourceVirtualAddressArray = []
+    entryResourceVirtualAddressArray = []
+    entryDebugVirtualAddressArray = []
+    entryLoadConfigVirtualAddressArray = []
+    entryIATVirtualAddressArray = []
+    
+    headerLength = len(header)
+    entryPointArray = getHexArray(sectionAlignment + 691)
+    imageBaseArray = getHexArray(imageBase)
+    sectionAlignmentArray = getHexArray(sectionAlignment)
+    fileAlignmentArray = getHexArray(fileAlignment)
+    imageSizeArray = getHexArray(sectionAlignment * 5)
+    headerSizeArray = getHexArray(headerLength)
+    
+    textRVirtualAddressArray = getHexArray(sectionAlignment)
+    rdataRVirtualAddressArray = getHexArray(sectionAlignment*2)
+    dataRVirtualAddressArray = getHexArray(sectionAlignment*3)
+    rsrcRVirtualAddressArray = getHexArray(sectionAlignment*4)
+    
+    textPointerToRawDataArray = getHexArray(headerLength)
+    textTableSize = 3584 + getLacking(3584, fileAlignment)
+    rdataPointerToRawDataArray = getHexArray(headerLength+textTableSize)
+    rdataTableSize = 3072 + getLacking(3072, fileAlignment)
+    dataPointerToRawDataArray = getHexArray(headerLength+textTableSize+rdataTableSize)
+    dataTableSize = 512 + getLacking(512, fileAlignment)
+    rsrcPointerToRawDataArray = getHexArray(headerLength+textTableSize+rdataTableSize+dataTableSize)
+    for i in range(4):
+        # Option Header
+        header[168+i] = entryPointArray[i]
+        header[180+i] = imageBaseArray[i]
+        header[184+i] = sectionAlignmentArray[i]
+        header[188+i] = fileAlignmentArray[i]
+        header[208+i] = imageSizeArray[i]
+        header[212+i] = headerSizeArray[i]
+        
+        # Section Table VirtualAddress
+        header[388+i] = textRVirtualAddressArray[i]
+        header[428+i] = rdataRVirtualAddressArray[i]
+        header[468+i] = dataRVirtualAddressArray[i]
+        header[508+i] = rsrcRVirtualAddressArray[i]
+        
+        # Section Table Size of Raw Data
+        header[396+i] = textPointerToRawDataArray[i]
+        header[436+i] = rdataPointerToRawDataArray[i]
+        header[476+i] = dataPointerToRawDataArray[i]
+        header[516+i] = rsrcPointerToRawDataArray[i]
+    return header
+
+# 프로그램 실행 시 가장 먼저 실행되는 함수
 if __name__ == "__main__":
-    cropBinaryArea('readme.exe')
-    entryPoint = 4787
-    imageBase = 4194304
+    #cropBinaryArea('readme.exe')
+    
     sectionAlignment = 4096
+    entryPoint = sectionAlignment + 691 # 4787
+    imageBase = sectionAlignment * 1024 # 4194304
     fileAlignment = 512
+    
+    setFailText()
+    TEXT = getPadding(TEXT, fileAlignment)
+    RDATA = getPadding(RDATA, fileAlignment)
+    DATA = getPadding(DATA, fileAlignment)
+    RSRC = getPadding(RSRC, fileAlignment)
+    
     newFile = open("testa.exe", "wb")
-    newFile.write(bytearray(DOS_HEADER))
-    newFile.write(bytearray(DOS_STUB))
-    newFile.write(bytearray(PE_HEADER))
-    newFile.write(getOptionalHeader(entryPoint, imageBase, sectionAlignment, fileAlignment))
-    newFile.write(bytearray(DATA_DIRECTORY))
-    newFile.write(getSectionTable(sectionAlignment, 'TEXT', 0))
-    newFile.write(getSectionTable(sectionAlignment, 'RDATA', 0))
-    newFile.write(getSectionTable(sectionAlignment, 'DATA', 0))
-    newFile.write(getSectionTable(sectionAlignment, 'RSRC', 0))
-    newFile.write(bytearray(getPadding(488)))
+    header = []
+    section = []
     
-    #fileAlignment-len(returnArray)
-    newFile.write(bytearray(TEXT))
-    newFile.write(bytearray(getPadding(352)))
-    newFile.write(bytearray(RDATA))
-    newFile.write(bytearray(getPadding(352)))
-    newFile.write(bytearray(DATA))
-    newFile.write(bytearray(getPadding(352)))
-    newFile.write(bytearray(RSRC))
+    header += DOS_HEADER
+    header += DOS_STUB
+    header += PE_HEADER
+    header += OPTIONAL_HEADER
+    header += DATA_DIRECTORY
+    header += SECTION_TABLE
+    header = getPadding(header, fileAlignment)
+    header = applyOptions(header, entryPoint, imageBase, sectionAlignment, fileAlignment)
     
+    newFile.write(bytearray(header+TEXT+RDATA+DATA+RSRC))
     newFile.close()
     """
     entryPoint = None
