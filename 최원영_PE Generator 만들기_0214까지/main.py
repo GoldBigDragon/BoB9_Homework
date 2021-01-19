@@ -55,7 +55,7 @@ class MainGUI(QMainWindow):
     layout = MainLayout()
     self.setWindowIcon(QIcon('./res/img/icon.png'))
     self.setCentralWidget(layout)
-    self.setWindowTitle("PE 뽑기 제작기")
+    self.setWindowTitle("PE 뽑기 생성기")
     self.show()
 
 # GUI창에 실질적인 위젯을 추가하는 함수
@@ -95,12 +95,12 @@ class MainLayout(QWidget):
     self.GENERATE_PE_BUTTON.setToolTip("위 설정대로 PE파일을 생성합니다.")
     self.GENERATE_PE_BUTTON.clicked.connect(self.checkCreate)
     
-    ENTRYPOINT_EDIT, self.ENTRYPOINT_LABEL = self.createFieldAndLabel('EntryPoint', 4787, 4787, 9999999999, "프로그램이 실행되는 코드의 상대 주소값(RVA) 입니다. (4787 ~ 9999999999)")
-    IMAGE_BASE_EDIT, self.IMAGE_BASE_LABEL = self.createFieldAndLabel('ImageBase', 4194304, 4194304, 9999999999, "가상메모리에서의 PE파일이 로딩 되는 주소입니다. (4194304 ~ 9999999999)")
-    SECTION_ALIGNMENT_EDIT, self.SECTION_ALIGNMENT_LABEL = self.createFieldAndLabel('SectionAlignment', 4096, 4096, 40960, "각 Section이 메모리 상에서 차지하는 최소 크기로,\nPage 단위(4096의 배수)로만 설정 가능합니다. (4096 ~ 40960)")
-    FILE_ALIGNMENT_EDIT, self.FILE_ALIGNMENT_LABEL = self.createFieldAndLabel('FileAlignment', 512, 512, 32768, "각 Section이 디스크 상에서 차지하는 최소 크기로,\n512부터 65536사이의 2의 n승 형태의 값만 설정 가능합니다. (512 ~ 32768)")
-    self.AMOUNT_EDIT, self.AMOUNT_LABEL = self.createFieldAndLabel('생성할 PE파일 개수', 3, 1, 10000, "생성시킬 PE 파일의 개수입니다. (1 ~ 10000)")
-    self.SUCCESS_AMOUNT, self.SUCCESS_LABEL = self.createFieldAndLabel('당첨 티켓 수', 1, 0, 10000, "생성된 PE 파일 중, 당첨 메시지를 띄울 PE 파일의 개수를 지정합니다. (0 ~ 10000)")
+    ENTRYPOINT_EDIT, self.ENTRYPOINT_LABEL = self.createFieldAndLabel('EntryPoint', 4096, 4096, 1048575, "프로그램이 실행되는 코드의 상대 주소값(RVA) 입니다.\n보통 SectionAlignment값과 동일합니다.")
+    IMAGE_BASE_EDIT, self.IMAGE_BASE_LABEL = self.createFieldAndLabel('ImageBase', 4194304, 65536, 1073741824, "가상메모리에서의 PE파일이 로딩 되는 주소로,\n65536의 배수만 설정 가능합니다. (65536 ~ 4294901760)\n \n예) 65536, 4194304, 7340032, 8847360")
+    SECTION_ALIGNMENT_EDIT, self.SECTION_ALIGNMENT_LABEL = self.createFieldAndLabel('SectionAlignment', 4096, 4096, 1048575, "각 Section이 메모리 상에서 차지하는 최소 크기로,\nPage 단위(4096의 배수)로만 설정 가능하며,\nFileAlignment보다 커야 합니다. (4096 ~ 4294963200)\n \n예) 4096, 8192, 12288, 16384")
+    FILE_ALIGNMENT_EDIT, self.FILE_ALIGNMENT_LABEL = self.createFieldAndLabel('FileAlignment', 512, 512, 32768, "각 Section이 디스크 상에서 차지하는 최소 크기로,\n512부터 65536사이의 2의 n승 형태로만 설정 가능하며,\nSectionAlignment보다 작아야 합니다. (512 ~ 32768)\n \n예) 512, 1024, 2048, 4096")
+    self.AMOUNT_EDIT, self.AMOUNT_LABEL = self.createFieldAndLabel('생성할 PE파일 개수', 3, 1, 10000, "생성시킬 PE 파일의 개수입니다. (1 ~ 10000)\n \n예) 10, 100, 121")
+    self.SUCCESS_AMOUNT, self.SUCCESS_LABEL = self.createFieldAndLabel('당첨 티켓 수', 1, 0, 10000, "생성된 PE 파일 중, 당첨 메시지를 띄울\nPE 파일의 개수를 지정합니다. (0 ~ 10000)\n \n예) 3, 6, 15")
     
     grid = QGridLayout()
     grid.setHorizontalSpacing(-1);
@@ -150,7 +150,7 @@ class MainLayout(QWidget):
 
   # PE 파일 생성 디렉터리를 지정하는 함수
   def fileOpen(self):
-    filename = QtWidgets.QFileDialog.getExistingDirectory(self, "채증파일이 저장된 디렉터리 선택")
+    filename = QtWidgets.QFileDialog.getExistingDirectory(self, "PE 파일을 생성할 디렉터리 선택")
     if filename is not None and len(filename) > 0:
       self.CREATE_PATH_LABEL.setText(str(filename))
 
@@ -195,13 +195,13 @@ class MainLayout(QWidget):
         self.SUCCESS_AMOUNT.setText(amount)
         successAmount = amount
     
-    if int(sectionAlignment) < 4096 or int(sectionAlignment)%4096 != 0 or int(fileAlignment) < 512 or int(fileAlignment) % 512 != 0:
+    if int(sectionAlignment) != int(entryPoint) or int(sectionAlignment) < int(fileAlignment) or int(imageBase) < 65536 or int(imageBase)%65536 != 0 or int(sectionAlignment) < 4096 or int(sectionAlignment)%4096 != 0 or int(fileAlignment) < 512 or int(fileAlignment) % 512 != 0:
         retval = sendAutoAlignMessage()
         if retval == 65536:
             pe.generatePE(int(entryPoint), int(imageBase), int(sectionAlignment), int(fileAlignment), int(amount), int(successAmount), directory)
             sendCompleteMessage()
         else:
-            ENTRYPOINT_EDIT.setText('4787')
+            ENTRYPOINT_EDIT.setText('4096')
             IMAGE_BASE_EDIT.setText('4194304')
             SECTION_ALIGNMENT_EDIT.setText('4096')
             FILE_ALIGNMENT_EDIT.setText('512')
