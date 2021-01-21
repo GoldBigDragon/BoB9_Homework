@@ -99,10 +99,9 @@
 ### Effective Yara - 곽경주
   - 주어진 샘플들을 모두 탐지할 수 있는 야라룰을 작성합니다.  
   - 룰의 개수가 적고 창의적일수록 높은 점수를 획득합니다.  
-  - 샘플 다운로드 경로는 아래와 같습니다. (악성코드 267개)  
-  - ICON 확인하는 방법도 사용 해 볼 것.  
   - [악성코드](https://mega.nz/file/opQFCSpT#yIG97HKRNE7FgmG5IXzK5SBP4GP3jpfDLcPIe2OOu2E "비밀번호 : infected")를 다운로드 받고, VMware에서 실행 할 것.  
   - 제출 Email : kjkwak12@gmail.com (연락처 : 010-2814-4679)  
+  - ICON 확인하는 방법도 사용 해 볼 것.  
 ***
 `2021년 02월 14일 일요일 까지`  
 ### Cloud Breach - Niko, 정승기
