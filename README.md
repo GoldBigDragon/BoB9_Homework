@@ -140,3 +140,15 @@
 ### 실시간 공격과 대응 POC검증 - 김종민
   - 시나리오에대한 POC 검증하기 : 리버스 백도어 등
   - 모듈 개발하기  
+***
+`진행 중` `2021년 01월 31일 일요일 까지`  
+### EnScript - 유현
+- 수업자료에 첨부된 PDF의 File Parse, Hand-on Practice 내용 모두 EnScript로 작성 해 보기.  
+- 제출 이메일 : cyberlab.prof@gmail.com  
+- 제출 기한 : 2021.01.31. 까지  
+- 항목 :  
+  - 파일로 부터 MD5, SHA1 계산 후, CSV파일로 추출하기  
+  - 선택 된 파일을 Map DATA형태로 받은 후, VirusTotal에서 MD5값을 조회하고, 회신된 json 객체 파일을 파싱하여 보기 좋게 만들기.  
+  - 로컬 디바이스의 MBR(C:\\lab\\MBR.dat)을 복사하기. (DeviceClass를 MBR읽는데 쓰고, LocalFileClass로 파일 복사하기)  
+  - 장치로 부터 2블록을 복사한 다음, 로컬 파일에 블록 단위로 저장하기. (예 : Block1.dat, Block2.dat)  
+  - 비할당 클러스터의 첫 번째 섹터 내용을 출력하기  
