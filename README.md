@@ -141,7 +141,7 @@
   - 시나리오에대한 POC 검증하기 : 리버스 백도어 등
   - 모듈 개발하기  
 ***
-`진행 중` `2021년 01월 31일 일요일 까지`  
+`완료` `2021년 01월 31일 일요일 까지`  
 ### EnScript - 유현
 - 수업자료에 첨부된 PDF의 File Parse, Hand-on Practice 내용 모두 EnScript로 작성 해 보기.  
 - 제출 이메일 : cyberlab.prof@gmail.com  
