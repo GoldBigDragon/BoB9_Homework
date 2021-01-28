@@ -1,0 +1,30 @@
+/*
+    Unllocated Cluster의 1번 섹터를 D:\\[드라이브이름]'s Unllocated Cluster's First Sector.dat 파일로 저장하는 EnScript.
+    ※ 속도 향상을 위해 추출할 Unllocated Cluster를 선택하도록 작성하였다. (만일 이 기능을 해제하려면, CURRENTVIEW_SELECTED을 ALL로 바꾸자!)
+*/
+class MainClass {
+    void Main(CaseClass c) {
+        SystemClass::ClearConsole(1);
+        uint unllocatedFileCounter = 0;
+        if(c) {
+            for(ItemIteratorClass iter(c, 0, ItemIteratorClass::CURRENTVIEW_SELECTED); EntryClass entry = iter.GetNextEntry();) {
+                if (entry.Name() == "Unallocated Clusters") {
+                    uint startSector = entry.PhysicalSector();
+                    DeviceClass dev = entry.GetDevice();
+                    unllocatedFileCounter++;
+                    EntryFileClass entryfile();
+                    entryfile.Open(dev, startSector, 1);
+                    entryfile.SetCodePage(CodePageClass::ANSI);
+                    entryfile.Seek(0);
+                    LocalFileClass localfile();
+                    localfile.Open("D:\\("+dev.Name()+") Unallocated Clusters"+unllocatedFileCounter+"'s First Sector.dat", FileClass::WRITE);
+                    localfile.WriteBuffer(entryfile, 512);
+                    localfile.Close();
+                    entryfile.Close();
+                    Console.WriteLine(dev.Name()+"속 Unallocated Clusters의 첫 섹터 추출 완료!");
+                }
+            }
+        }
+        Console.WriteLine("총 " + unllocatedFileCounter + "개의 Unallocated Clusters에 대한 첫 섹터 추출이 완료되었습니다!");
+    }
+}
