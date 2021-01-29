@@ -16,13 +16,22 @@ CREATE TABLE IF NOT EXISTS `Rootkit` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET='euckr';
 
+# 대상 : $ hosts
+# 기록 요지 : n초에 1회 수집. HOSTS파일 변조 탐지를 위함
+CREATE TABLE IF NOT EXISTS `Hosts` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `time` VARCHAR(20) NOT NULL DEFAULT '2021-01-01 00:00:00',
+  `status` VARCHAR(3),
+  `address` LONGTEXT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET='euckr';
+
 # 대상 : $ history
 # 기록 요지 : n초에 1회 수집. 침투 동향을 파악하기 위함.
 CREATE TABLE IF NOT EXISTS `History` (
   `num` INT(11),
   `time` VARCHAR(20) NOT NULL DEFAULT '2021-01-01 00:00:00',
   `command` longtext DEFAULT NULL,
-  `vid` INT(11) DEFAULT NULL,
   PRIMARY KEY (`num`)
 ) ENGINE=InnoDB DEFAULT CHARSET='euckr';
 
@@ -30,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `History` (
 # 기록 요지 : n초에 1회 수집. 서버 시간 변조를 탐지하기 위함.
 CREATE TABLE IF NOT EXISTS `SystemTime` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `time` VARCHAR(20) NOT NULL DEFAULT '2021-01-01 00:00:00',
+  `time` DATETIME,
   `systemTime` VARCHAR(20) NOT NULL DEFAULT '2021-01-01 00:00:00',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET='euckr';
@@ -40,11 +49,13 @@ CREATE TABLE IF NOT EXISTS `SystemTime` (
 CREATE TABLE IF NOT EXISTS `AccountPasswd` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `time` VARCHAR(20) NOT NULL DEFAULT '2021-01-01 00:00:00',
-  `type` VARCHAR(3),
+  `status` VARCHAR(3),
   `user` LONGTEXT,
-  `permission` VARCHAR(10),
-  `daemon` LONGTEXT,
-  `path` LONGTEXT,
+  `uid` INT(11),
+  `gid` INT(11),
+  `name` LONGTEXT,
+  `homeDir` LONGTEXT,
+  `loginShell` LONGTEXT,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET='euckr';
 
@@ -52,12 +63,23 @@ CREATE TABLE IF NOT EXISTS `AccountPasswd` (
 # 기록 요지 : 계정 사용 정보를 n초에 1회 수집. 침투 여부를 알기 위함.
 CREATE TABLE IF NOT EXISTS `AccountActivity` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `upTime` VARCHAR(20) NOT NULL DEFAULT '2021-01-01 00:00:00',
+  `time` VARCHAR(20) NOT NULL DEFAULT '2021-01-01 00:00:00',
+  `upTime` VARCHAR(20),
   `loginUsers` INT(11),
+  `user` VARCHAR(40),
   `tty` VARCHAR(40),
   `connectFrom` VARCHAR(40),
   `loginTime` VARCHAR(20) NOT NULL DEFAULT '2021-01-01 00:00:00',
   `what` LONGTEXT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET='euckr';
+
+# 대상 : $ cat /proc/version
+# 기록 요지 : 시스템 정보를 확인하기 위함.
+CREATE TABLE IF NOT EXISTS `SystemVersion` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `time` VARCHAR(20) NOT NULL DEFAULT '2021-01-01 00:00:00',
+  `systemVersion`LONGTEXT,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET='euckr';
 
@@ -67,10 +89,9 @@ CREATE TABLE IF NOT EXISTS `AccountActivity` (
 CREATE TABLE IF NOT EXISTS `LastLog` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `time` VARCHAR(20) NOT NULL DEFAULT '2021-01-01 00:00:00',
+  `status` VARCHAR(3),
   `username` LONGTEXT,
-  `port` INT(11),
-  `address` VARCHAR(50),
-  `changeTime` VARCHAR(20),
+  `data` LONGTEXT,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET='euckr';
 
@@ -102,12 +123,11 @@ CREATE TABLE IF NOT EXISTS `Logs` (
 CREATE TABLE IF NOT EXISTS `FileTimeLogs` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `time` VARCHAR(20) NOT NULL DEFAULT '2021-01-01 00:00:00',
-  `type` VARCHAR(10),
   `permission` VARCHAR(20),
   `user` LONGTEXT,
-  `group` LONGTEXT,
+  `userGroup` LONGTEXT,
   `size` INT(11),
-  `path` LONGTEXT,
+  `filePath` LONGTEXT,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET='euckr';
 
@@ -117,19 +137,39 @@ CREATE TABLE IF NOT EXISTS `FileTimeLogs` (
 CREATE TABLE IF NOT EXISTS `ProcessStatus` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `time` VARCHAR(20) NOT NULL DEFAULT '2021-01-01 00:00:00',
-  `name` LONGTEXT,
+  `status` VARCHAR(3),
   `uid` LONGTEXT,
   `pid` INT(11),
   `ppid` INT(11),
-  `childName` LONGTEXT,
-  `starttime` VARCHAR(20) NOT NULL DEFAULT '2021-01-01 00:00:00',
-  `size` INT(11),
-  `used` INT(11),
-  `by` LONGTEXT,
+  `startTime` VARCHAR(20) NOT NULL DEFAULT '2021-01-01 00:00:00',
   `cmd` LONGTEXT,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET='euckr';
 
+# 대상 : $ lsmod
+# 기록 요지 : n초에 1회 수집. 프로세스 수행 내역을 추적하기 위함.
+CREATE TABLE IF NOT EXISTS `ProcessLsmod` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `time` VARCHAR(20) NOT NULL DEFAULT '2021-01-01 00:00:00',
+  `status` VARCHAR(3),
+  `name` LONGTEXT,
+  `size` INT(11),
+  `used` INT(11),
+  `daemon` LONGTEXT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET='euckr';
+
+# 대상 : $ lsof
+# 기록 요지 : n초에 1회 수집. 프로세스 프로세스 수행 내역을 확인하기 위함.
+CREATE TABLE IF NOT EXISTS `ProcessLsof` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `time` VARCHAR(20) NOT NULL DEFAULT '2021-01-01 00:00:00',
+  `status` VARCHAR(3),
+  `command` LONGTEXT,
+  `pid` INT(11),
+  `path` LONGTEXT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET='euckr';
 
 #####네트워크#####
 # 대상 : netstat -naop
@@ -137,9 +177,11 @@ CREATE TABLE IF NOT EXISTS `ProcessStatus` (
 CREATE TABLE IF NOT EXISTS `InternetConnection` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `time` VARCHAR(20) NOT NULL DEFAULT '2021-01-01 00:00:00',
+  `status` VARCHAR(3),
   `proto` VARCHAR(10),
   `localAddress` VARCHAR(40),
   `foreignAddress` VARCHAR(40),
+  `state` VARCHAR(40),
   `pid` INT(11),
   `programName` LONGTEXT,
   `timer` LONGTEXT,
@@ -151,25 +193,29 @@ CREATE TABLE IF NOT EXISTS `InternetConnection` (
 CREATE TABLE IF NOT EXISTS `SocketConnection` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `time` VARCHAR(20) NOT NULL DEFAULT '2021-01-01 00:00:00',
+  `status` VARCHAR(3),
   `proto` VARCHAR(10),
   `refCnt` INT(11),
   `type` VARCHAR(20),
   `state` VARCHAR(20),
   `iNode` INT(11),
   `pid` INT(11),
+  `programName` LONGTEXT,
   `path` LONGTEXT,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET='euckr';
 
-# 대상 : Suricata
+# 대상 : 패킷 스니퍼
 # 기록 요지 : C&C 서버 주소를 탐지하기 위함.
 CREATE TABLE IF NOT EXISTS `PacketTraffic` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `time` VARCHAR(20) NOT NULL DEFAULT '2021-01-01 00:00:00',
+  `protocol` VARCHAR(10),
   `sourceIp` VARCHAR(40),
   `sourcePort` INT(11),
   `destIp` VARCHAR(40),
   `destPort` INT(11),
+  `header` VARCHAR(256),
   `data` LONGTEXT,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET='euckr';
@@ -179,6 +225,7 @@ CREATE TABLE IF NOT EXISTS `PacketTraffic` (
 CREATE TABLE IF NOT EXISTS `Arp` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `time` VARCHAR(20) NOT NULL DEFAULT '2021-01-01 00:00:00',
+  `status` VARCHAR(3),
   `address` VARCHAR(40),
   `hardwareType` VARCHAR(20),
   `hardwareAddress` VARCHAR(40),
@@ -192,6 +239,7 @@ ALTER TABLE `History` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
 ALTER TABLE `SystemTime` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
 ALTER TABLE `AccountPasswd` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
 ALTER TABLE `AccountActivity` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `SystemVersion` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
 ALTER TABLE `LastLog` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
 ALTER TABLE `WebLogs` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
 ALTER TABLE `Logs` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
