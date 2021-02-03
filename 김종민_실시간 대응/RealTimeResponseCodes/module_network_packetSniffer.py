@@ -8,7 +8,6 @@ import textwrap
 import socket
 import struct
 import binascii
-import requests
 import json
 from datetime import datetime
 
@@ -98,10 +97,7 @@ def sendApiServer(protocol, srcIp, srcPort, dstIp, dstPort, header, rawdata):
     global subUrl
     nowTime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     data = {'time': nowTime, 'protocol': protocol, 'sourceIp': srcIp, 'sourcePort': srcPort, 'destIp': dstIp, 'destPort': dstPort, 'header': header, 'data': rawdata}
-    try:
-        requests.post(main.serverAddress + subUrl, data=json.dumps(data), timeout=60)
-    except Exception:
-        pass
+    main.serverSender(subUrl, json.dumps(data))
 """ MySQL 사용 시 위의 import pymysql 주석도 해제할 것.
 def insertMySQL(protocol, srcIp, srcPort, dstIp, dstPort, header, data):
     nowTime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')

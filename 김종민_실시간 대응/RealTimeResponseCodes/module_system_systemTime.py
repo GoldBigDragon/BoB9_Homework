@@ -6,7 +6,6 @@ Created on Sat Jan 23 23:05:03 2021
 """
 
 import subprocess
-import requests
 import json
 import threading
 import main
@@ -26,10 +25,7 @@ def runThread():
 def sendApiServer(row):
     global subUrl
     data = {'systemTime': row}
-    try:
-        requests.post(main.serverAddress + subUrl, data=json.dumps(data), timeout=60)
-    except Exception:
-        pass
+    main.serverSender(subUrl, json.dumps(data))
 
 def start():
     runThread()

@@ -6,7 +6,6 @@ Created on Sat Jan 23 23:05:03 2021
 """
 
 import subprocess
-import requests
 import json
 import threading
 import main
@@ -43,10 +42,7 @@ def sendApiServer(row):
     time = tabs[5] + ' ' + tabs[6]
     if tabs[7] != '.':
         data = {'time': time, 'permission': tabs[0], 'user': tabs[2], 'userGroup': tabs[3], 'size':tabs[4], 'filePath': tabs[7]}
-        try:
-            requests.post(main.serverAddress + subUrl, data=json.dumps(data), timeout=60)
-        except Exception:
-            pass
+        main.serverSender(subUrl, json.dumps(data))
 
 def start():
     global ORIGINAL_DATAS

@@ -6,7 +6,6 @@ Created on Sat Jan 23 23:05:03 2021
 """
 
 import subprocess
-import requests
 import json
 import main
 from datetime import datetime
@@ -23,10 +22,7 @@ def sendApiServer():
     results = getCommandResult('cat /proc/version')
     nowTime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     data = {'time': nowTime, 'systemVersion': results}
-    try:
-        requests.post(main.serverAddress + subUrl, data=json.dumps(data), timeout=60)
-    except Exception:
-        pass
+    main.serverSender(subUrl, json.dumps(data))
 
 def start():
     sendApiServer()

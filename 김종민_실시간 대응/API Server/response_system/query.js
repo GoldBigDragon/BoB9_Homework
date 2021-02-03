@@ -108,4 +108,26 @@ module.exports = {
       }
     });
   },
+  insertWebLog: (post, callback) => {
+    const updateQuery = "INSERT IGNORE INTO `realtimeResponse`.`weblogs` (time, status, method, user, message, size) VALUES(?, ?, ?, ?, ?, ?);";
+    con.query(updateQuery, [post.time, post.status, post.method, post.user, post.message, post.size], (err) => {
+      if (err) {
+        console.log(err);
+        callback(err, "fail");
+      } else {
+        callback(err, "success");
+      }
+    });
+  },
+  insertMajorLog: (post, callback) => {
+    const updateQuery = "INSERT IGNORE INTO `realtimeResponse`.`majorlogs` (time, status, path, user, message) VALUES(?, ?, ?, ?, ?);";
+    con.query(updateQuery, [post.time, post.status, post.path, post.user, post.message], (err) => {
+      if (err) {
+        console.log(err);
+        callback(err, "fail");
+      } else {
+        callback(err, "success");
+      }
+    });
+  },
 };

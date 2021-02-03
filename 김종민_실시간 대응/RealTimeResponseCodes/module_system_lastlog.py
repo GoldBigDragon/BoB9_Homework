@@ -2,16 +2,10 @@
 """
 Created on Sat Jan 23 23:05:03 2021
 
-@author: GoldBigDragon
-"""
-"""
-alter table Lastlogs add status  VARCHAR(20);
-alter table Lastlogs change path filepath  LONGTEXT;
-alter table Lastlogs change group user_gruop LONGTEXT;
+@author: 조서연, GoldBigDragon
 """
 
 import subprocess
-import requests
 import json
 from datetime import datetime
 import threading
@@ -22,9 +16,6 @@ ORIGINAL_DATAS = []
 
 global subUrl
 subUrl = '/system/post-lastlog'
-
-global ORIGINAL_LASTLOG
-ORIGINAL_LASTLOG = []
 
 def getCommandResult():
     output = subprocess.getoutput("lastlog").split('\n')
@@ -49,10 +40,7 @@ def sendApiServer(nowTime, status, row):
     global subUrl
     tabs = row.replace('  ', ' ').split(' ')
     data = {'time': nowTime, 'status': status, 'username': tabs[0], 'data': ' '.join(tabs[1:])}
-    try:
-        requests.post(main.serverAddress + subUrl, data=json.dumps(data), timeout=60)
-    except Exception:
-        pass
+    main.serverSender(subUrl, json.dumps(data))
 
 def start():
     global ORIGINAL_DATAS

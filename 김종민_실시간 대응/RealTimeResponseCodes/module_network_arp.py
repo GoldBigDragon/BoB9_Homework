@@ -5,7 +5,6 @@ Created on Sat Jan 23 23:05:03 2021
 @author: GoldBigDragon
 """
 import subprocess
-import requests
 import json
 from datetime import datetime
 import threading
@@ -40,10 +39,7 @@ def sendApiServer(nowTime, status, row):
     global subUrl
     tabs = row.split(' ')
     data = {'time': nowTime, 'status':status, 'address': tabs[0], 'hardwareType': tabs[1], 'hardwareAddress': tabs[2], 'interface': tabs[3]}
-    try:
-        requests.post(main.serverAddress + subUrl, data=json.dumps(data), timeout=60)
-    except Exception:
-        pass
+    main.serverSender(subUrl, json.dumps(data))
 
 def start():
     global ORIGINAL_DATAS

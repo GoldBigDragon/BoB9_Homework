@@ -13,6 +13,8 @@ const processQ = require("./response_process/query.js");
 const systemQ = require("./response_system/query.js");
 const operatorQ = require("./operator/query.js");
 
+const attackNetworkQ = require("./attack_network/query.js");
+const attackLogQ = require("./attack_log/query.js");
 // GET
 getEventHandler.on("/op/get", operatorQ.getCommand);
 getEventHandler.on("/network/get-arp", networkQ.getArp);
@@ -38,6 +40,11 @@ postEventHandler.on("/system/post-info", systemQ.insertSystemVersion);
 postEventHandler.on("/system/post-w", systemQ.insertAccountActivity);
 postEventHandler.on("/system/post-passwd", systemQ.insertAccountPasswd);
 postEventHandler.on("/system/post-lastlog", systemQ.insertLastLog);
+postEventHandler.on("/system/post-web", systemQ.insertWebLog);
+postEventHandler.on("/system/post-major", systemQ.insertMajorLog);
+
+postEventHandler.on("/attack/network/post-packet", attackNetworkQ.insertPacket);
+postEventHandler.on("/attack/network/post-log", attackLogQ.insertLog);
 
 server.on("request", (req, res) => {
   if (req.url === "/health") {
@@ -86,10 +93,12 @@ function commonRequest(req, res) {
         }
       });
     } else if (req.method === "POST") {
+      const convert = (from, to) => str => Buffer.from(str, from).toString(to);
+      const hexToUtf8 = convert('hex', 'utf8');
       const post = JSON.parse(body);
-      //console.log(`[POST] : ${decoded}`);
-      //console.log(`[POST] : ${decoded} [${body}]\r\n`);
-      postEventHandler.emit(pathname, post, (err, rows) => {
+      realData = JSON.parse(reverseString(hexToUtf8(post.data.substring(1))))
+      // console.log(`[POST] : ${realData}`);
+      postEventHandler.emit(pathname, realData, (err, rows) => {
         if (err) {
           res.writeHead(500, {
             "Content-Type": "text/plain; charset=utf-8",
@@ -107,7 +116,9 @@ function commonRequest(req, res) {
     }
   });
 }
-
+function reverseString(str) {
+  return str.split("").reverse().join("");
+}
 function getClientAddress(req) {
   return (
     (req.headers["x-forwarded-for"] || "").split(",")[0] ||

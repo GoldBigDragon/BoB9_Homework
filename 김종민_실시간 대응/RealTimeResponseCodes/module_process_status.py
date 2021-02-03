@@ -5,7 +5,6 @@ Created on Sat Jan 23 23:05:03 2021
 @author: 백승훈, GoldBigDragon
 """
 import subprocess
-import requests
 import json
 import threading
 from datetime import datetime
@@ -46,10 +45,7 @@ def sendApiServer(nowTime, status, row):
     tabs = row.split(' ')
     if tabs[4] not in defaultProcess and  'scsi' not in tabs[4] and 'vmware' not in tabs[4] and '/usr/libexec' not in tabs[4] and ('[' not in tabs[4] and ']' not in tabs[4]):
         data = {'time': nowTime, 'status': status, 'uid': tabs[0], 'pid': tabs[1], 'ppid': tabs[2], 'startTime': tabs[3], 'cmd' : tabs[4]}
-        try:
-            requests.post(main.serverAddress + subUrl, data=json.dumps(data), timeout=60)
-        except Exception:
-            pass
+        main.serverSender(subUrl, json.dumps(data))
 
 def start():
     global ORIGINAL_DATAS
@@ -59,8 +55,5 @@ def start():
     for row in ORIGINAL_DATAS:
         tabs = row.split(' ')
         data = {'time': nowTime, 'status': 'ORI', 'uid': tabs[0], 'pid': tabs[1], 'ppid': tabs[2], 'startTime': tabs[3], 'cmd' : tabs[4]}
-        try:
-            requests.post(main.serverAddress + subUrl, data=json.dumps(data), timeout=60)
-        except Exception:
-            pass
+        main.serverSender(subUrl, json.dumps(data))
     runThread()

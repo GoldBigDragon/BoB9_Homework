@@ -100,6 +100,7 @@ CREATE TABLE IF NOT EXISTS `LastLog` (
 CREATE TABLE IF NOT EXISTS `WebLogs` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `time` VARCHAR(20) NOT NULL DEFAULT '2021-01-01 00:00:00',
+  `status` VARCHAR(3),
   `method` VARCHAR(10),
   `user` LONGTEXT,
   `message` LONGTEXT,
@@ -109,9 +110,10 @@ CREATE TABLE IF NOT EXISTS `WebLogs` (
 
 # 대상 : /var/log/auth.log, /var/log/cron, /var/log/secure, /var/log/xferlog, /var/log/message, /var/log/utmp, /var/log/wtmp
 # 기록 요지 : 서버에 자동 기입 되는 로그 내용을 실시간 기입.
-CREATE TABLE IF NOT EXISTS `Logs` (
+CREATE TABLE IF NOT EXISTS `MajorLogs` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `time` VARCHAR(20) NOT NULL DEFAULT '2021-01-01 00:00:00',
+  `status` VARCHAR(3),
   `path` LONGTEXT,
   `user` LONGTEXT,
   `message` LONGTEXT,
@@ -253,6 +255,21 @@ ALTER TABLE `Arp` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
 CREATE DATABASE IF NOT EXISTS `realtimeAttack`;
 USE `realtimeAttack`;
 
+# 대상 : 패킷 스니퍼
+# 기록 요지 : 대응 서버 주소를 탐지하기 위함.
+CREATE TABLE IF NOT EXISTS `PacketTraffic` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `time` VARCHAR(20) NOT NULL DEFAULT '2021-01-01 00:00:00',
+  `protocol` VARCHAR(10),
+  `sourceIp` VARCHAR(40),
+  `sourcePort` INT(11),
+  `destIp` VARCHAR(40),
+  `destPort` INT(11),
+  `header` VARCHAR(256),
+  `data` LONGTEXT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET='euckr';
+
 # 대상 : 공격 결과
 # 기록 요지 : 공격 성공 여부 확인
 CREATE TABLE IF NOT EXISTS `AttackLog` (
@@ -264,4 +281,5 @@ CREATE TABLE IF NOT EXISTS `AttackLog` (
 ) ENGINE=InnoDB DEFAULT CHARSET='euckr';
 
 ALTER DATABASE `realtimeAttack` CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `PacketTraffic` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
 ALTER TABLE `AttackLog` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;

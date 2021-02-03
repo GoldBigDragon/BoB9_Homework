@@ -5,7 +5,6 @@ Created on Sat Jan 23 23:05:03 2021
 @author: GoldBigDragon
 """
 import subprocess
-import requests
 import json
 import threading
 from datetime import datetime
@@ -92,10 +91,7 @@ def sendApiServer(nowTime, isSocket, row):
                     pid = int(tabs[8].split('/')[0])
                     programName = '/'.join(tabs[8].split('/')[1:])
                 data = {'time': nowTime, 'status':status, 'proto': tabs[0], 'refCnt': int(tabs[1]), 'type': tabs[5], 'state': tabs[6], 'iNode': int(tabs[7]), 'pid': pid, 'programName': programName, 'path': tabs[9]}
-                try:
-                    requests.post(main.serverAddress + socketSubUrl, data=json.dumps(data), timeout=60)
-                except Exception:
-                    pass
+                main.serverSender(socketSubUrl, json.dumps(data))
     else :
         INTERNET_DATAS.append(row)
         if(row not in INTERNET_ORIGINAL_DATAS):
@@ -112,10 +108,7 @@ def sendApiServer(nowTime, isSocket, row):
                     pid = int(tabs[5].split('/')[0])
                     programName = '/'.join(tabs[5].split('/')[1:])
                 data = {'time': nowTime, 'status':status, 'proto': tabs[0], 'localAddress': tabs[3], 'foreignAddress': tabs[4], 'state': None, 'pid': pid, 'programName': programName, 'timer': tabs[6]}
-            try:
-                requests.post(main.serverAddress + internetSubUrl, data=json.dumps(data), timeout=60)
-            except Exception:
-                pass
+            main.serverSender(internetSubUrl, json.dumps(data))
 
 def sendApiServerDel(nowTime, isSocket, row):
     global internetSubUrl
@@ -131,10 +124,7 @@ def sendApiServerDel(nowTime, isSocket, row):
                 pid = int(tabs[8].split('/')[0])
                 programName = '/'.join(tabs[8].split('/')[1:])
             data = {'time': nowTime, 'status': "DEL", 'proto': tabs[0], 'refCnt': int(tabs[1]), 'type': tabs[5], 'state': tabs[6], 'iNode': int(tabs[7]), 'pid': pid, 'programName': programName, 'path': tabs[9]}
-            try:
-                requests.post(main.serverAddress + socketSubUrl, data=json.dumps(data), timeout=60)
-            except Exception:
-                pass
+            main.serverSender(socketSubUrl, json.dumps(data))
     else :
         if len(tabs) >= 9:
             if '/' in tabs[6]:
@@ -146,10 +136,7 @@ def sendApiServerDel(nowTime, isSocket, row):
                 pid = int(tabs[5].split('/')[0])
                 programName = '/'.join(tabs[5].split('/')[1:])
             data = {'time': nowTime, 'status': "DEL", 'proto': tabs[0], 'localAddress': tabs[3], 'foreignAddress': tabs[4], 'state': None, 'pid': pid, 'programName': programName, 'timer': tabs[6]}
-        try:
-            requests.post(main.serverAddress + internetSubUrl, data=json.dumps(data), timeout=60)
-        except Exception:
-            pass
+        main.serverSender(internetSubUrl, json.dumps(data))
 
 def start():
     runThread()
