@@ -21,6 +21,7 @@ const attackLogQ = require("./attack_log/query.js");
 // GET
 getEventHandler.on("/op/get", operatorQ.getCommand);
 getEventHandler.on("/file/getTarget", operatorQ.getDownloadTargets);
+getEventHandler.on("/file/getNeedRemoves", operatorQ.getNeedRemoveTarget);
 getEventHandler.on("/dir/create", operatorQ.createDir);
 getEventHandler.on("/network/get-arp", networkQ.getArp);
 getEventHandler.on("/network/get-internet", networkQ.getInternetConnection);
@@ -51,23 +52,30 @@ postEventHandler.on("/system/post-web", systemQ.insertWebLog);
 postEventHandler.on("/system/post-major", systemQ.insertMajorLog);
 
 postEventHandler.on("/attack/network/post-packet", attackNetworkQ.insertPacket);
-postEventHandler.on("/attack/network/post-log", attackLogQ.insertLog);
+postEventHandler.on("/attack/post-log", attackLogQ.insertLog);
+postEventHandler.on("/attack/post-createFile", attackLogQ.insertFileCreateLog);
+postEventHandler.on("/attack/post-deleteFile", attackLogQ.updateFileDeleteLog);
 
 server.on("request", (req, res) => {
   if (req.url === "/health") {
     healthCheck(req, res);
   } else if (req.url === "/fileupload") {
-    var form = new formidable.IncomingForm();
-    form.uploadDir = "D:\\";
-    form.parse(req, function (err, fields, files) {
-      var oldpath = files.filetoupload.path;
-      var newpath = __dirname +'\\uploads\\' + files.filetoupload.name;
-      fs.rename(oldpath, newpath, function (err) {
-        if (err) throw err;
-        res.write('File uploaded and moved!');
-        res.end();
+      var form = new formidable.IncomingForm();
+      form.uploadDir = "D:\\";
+      form.parse(req, function (err, fields, files) {
+        if (files.filetoupload != null) {
+          var oldpath = files.filetoupload.path;
+          var newpath = __dirname +'\\uploads\\' + files.filetoupload.name;
+          fs.rename(oldpath, newpath, function (err) {
+            if (err) throw err;
+            res.write('File uploaded and moved!');
+            res.end();
+          });
+        } else {
+          res.write('File not uploaded!');
+          res.end();
+        }
       });
-    });
   } else if (req.url==="/fff") {
     res.writeHead(200, {'Content-Type': 'text/html'});
     res.write('<html><head><meta charset="utf-8"></head><body><form action="fileupload" method="post" enctype="multipart/form-data">');

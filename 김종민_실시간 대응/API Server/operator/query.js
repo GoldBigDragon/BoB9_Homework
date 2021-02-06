@@ -33,6 +33,20 @@ module.exports = {
         }
       }
     });
+  }, getNeedRemoveTarget: (param, callback) => {
+    const selectQuery = "SELECT `id`, directoryName, fileName FROM `realtimeattack`.`createfiles`;";
+    con.query(selectQuery, (err, rows) => {
+      if (err) {
+        console.log(err);
+        callback(err, { result: "fail" });
+      } else {
+        if (rows.length > 0) {
+          callback(err, rows);
+        } else {
+          callback(err, null);
+        }
+      }
+    });
   }, createDir: (param, callback) => {
     const dirPath = "D:\\엔터테이먼트\\문서\\BoB 9기\\과제\\3차\\김종민_실시간 대응\\API Server\\uploads\\" + param.path.replace('/', "\\");
     const isExists = fs.existsSync( dirPath );
@@ -69,7 +83,7 @@ module.exports = {
     });
   },
   updateFileDownloadTarget: (post, callback) => {
-    const updateQuery = "UPDATE `realtimeResponse`.`filedownload` SET complete = 1 WHERE id = ?;";
+    const updateQuery = "UPDATE `realtimeResponse`.`filedownload` SET complete = 1 WHERE `id` = ?;";
     con.query(updateQuery, [post.id], (err) => {
       if (err) {
         console.log(err);

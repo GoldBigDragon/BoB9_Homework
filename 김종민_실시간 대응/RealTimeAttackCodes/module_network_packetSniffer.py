@@ -86,7 +86,7 @@ def sendApiServer(protocol, srcIp, srcPort, dstIp, dstPort, header, rawdata):
 
 def start():
     conn = socket.socket(socket.PF_PACKET, socket.SOCK_RAW, socket.ntohs(3))
-    while True:
+    while True and main.start :
         raw_data, addr = conn.recvfrom(65536)
         dest_mac, src_mac, eth_proto, data = ethernetFrame(raw_data)
         if eth_proto == 'IPV4':

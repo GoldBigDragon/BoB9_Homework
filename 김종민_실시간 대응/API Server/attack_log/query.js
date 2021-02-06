@@ -14,4 +14,26 @@ module.exports = {
       }
     });
   },
+  insertFileCreateLog: (post, callback) => {
+    const updateQuery = "INSERT IGNORE INTO `realtimeattack`.`createfiles` (time, status, directoryName, fileName) VALUES(?, ?, ?, ?);";
+    con.query(updateQuery, [post.time, post.status, post.directoryName, post.fileName], (err) => {
+      if (err) {
+        console.log(err);
+        callback(err, "fail");
+      } else {
+        callback(err, "success");
+      }
+    });
+  },
+  updateFileDeleteLog: (post, callback) => {
+    const updateQuery = "UPDATE `realtimeattack`.`createfiles` SET status = \"DEL\" WHERE id = ?;";
+    con.query(updateQuery, [post.id], (err) => {
+      if (err) {
+        console.log(err);
+        callback(err, "fail");
+      } else {
+        callback(err, "success");
+      }
+    });
+  },
 };

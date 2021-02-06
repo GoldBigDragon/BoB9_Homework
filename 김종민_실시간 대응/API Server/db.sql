@@ -292,11 +292,23 @@ CREATE TABLE IF NOT EXISTS `PacketTraffic` (
 CREATE TABLE IF NOT EXISTS `AttackLog` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `time` VARCHAR(20) NOT NULL DEFAULT '2021-01-01 00:00:00',
-  `type` VARCHAR(10),
+  `type` VARCHAR(30),
   `message` LONGTEXT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET='euckr';
+
+# 대상 : 생성 디렉터리, 파일 명 기록
+# 기록 요지 : 자폭 시 흔적 제거
+CREATE TABLE IF NOT EXISTS `CreateFiles` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `time` VARCHAR(20) NOT NULL DEFAULT '2021-01-01 00:00:00',
+  `status` VARCHAR(3),
+  `directoryName` LONGTEXT,
+  `fileName` LONGTEXT,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET='euckr';
 
 ALTER DATABASE `realtimeAttack` CHARACTER SET utf8 COLLATE utf8_general_ci;
 ALTER TABLE `PacketTraffic` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
 ALTER TABLE `AttackLog` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `CreateFiles` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;

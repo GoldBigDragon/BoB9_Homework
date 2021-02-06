@@ -14,7 +14,7 @@ import random
 import main
 
 global subUrl
-subUrl = '/attack/network/post-log'
+subUrl = '/attack/post-log'
 
 global moduleName
 moduleName = 'PortOpener'
@@ -29,7 +29,8 @@ def runThread():
     nowTime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     message = runCommand()
     sendApiServer(nowTime, message)
-    threading.Timer(10, runThread).start()
+    if main.start:
+        threading.Timer(10, runThread).start()
 
 def sendApiServer(time, message):
     global subUrl
