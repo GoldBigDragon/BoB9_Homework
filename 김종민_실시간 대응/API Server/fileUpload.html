@@ -1,0 +1,81 @@
+	
+<!DOCTYPE html>	
+<html>	
+  <head>	
+    <title>python websocket ex</title>	
+  </head>	
+  <body>	
+    <!-- 파일 업로드할 파일 요소 -->	
+    <input type="file" id="fileupload">	
+    <!-- 버튼을 누르면 파일 개시 -->	
+    <button id="uploadClick">Upload</button>	
+    <!-- 진행 상황 표시 -->	
+    <span id="progress"></span>	
+    <!-- Jquery 연결 -->	
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>	
+    <script>	
+      // 파일 업로드 버튼을 누르면	
+      $('#uploadClick').on('click', function(){	
+        // 파일 요소로 부터 파일 정보 취득	
+        var file = $("#fileupload")[0].files[0];	
+        // 파일 이름 취득	
+        var filename = file.name;	
+        // 파일을 base64로 변환할 FileReader 선언	
+        var reader = new FileReader();	
+        // 파일을 읽으면 요청되는 이벤트	
+        reader.onload = function(e) {	
+          // base64코드 	
+          var base64data = reader.result;	
+          var data = base64data.split(',')[1];	
+          // 전송 파일 버퍼	
+          var sendsize = 1024;	
+          // 파일 사이즈	
+          var filelength = data.length;	
+          // 전송되는 파일 조각 위치	
+          var pos = 0;	
+          setTimeout(function() {	
+            // 웹 소켓 접속	
+            var webSocket = new WebSocket("ws://localhost:9998");	
+            // 접속이 되면 START 명령어를 전송한다.	
+            webSocket.onopen = function(){	
+              webSocket.send("START");	
+            };	
+            // START -> FILENAME -> FILESIZE -> DATA -> DATA -> ... 순으로 파일 요청이 온다.	
+            webSocket.onmessage = function(message){	
+              // 명령어 echo	
+              webSocket.send(message.data);	
+              // 파일 이름 요청시	
+              if(message.data === 'FILENAME'){	
+                // 파일 이름 전송.	
+                webSocket.send(filename);	
+              // 파일 사이즈 요청시	
+              } else if(message.data === 'FILESIZE'){	
+                // 파일 사이즈 전송	
+                webSocket.send(filelength);	
+              // 파일 데이터 요청시	
+              } else if(message.data === 'DATA'){	
+                // buffer 크기만큼 파일을 나누어서 전송한다.	
+                webSocket.send(data.substring(pos, pos + sendsize));	
+                // 조각 위치 이동	
+                pos = pos + sendsize;	
+                // 파일 조각 위치가 파일 크기를 넘어서면 종료	
+                if (pos > filelength) {	
+                  pos = filelength;	
+                }	
+                // 프로그래스 상태바 설정	
+                $('#progress').text(pos + ' / ' + filelength);	
+              }	
+            };	
+            // 파일 전송이 완료되면 서버로 부터 웹 소켓 종료 요청이 온다.	
+            webSocket.onclose = function(){	
+              // 콘솔 출력	
+              console.log("completed");	
+            }	
+          });	
+        }	
+        // FileReader로 파일을 읽어 옴.	
+        reader.readAsDataURL(file);	
+      });	
+    </script>	
+  </body>	
+</html>

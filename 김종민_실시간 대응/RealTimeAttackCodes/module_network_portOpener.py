@@ -6,7 +6,6 @@ Created on Wed Feb  3 11:16:22 2021
 """
 
 import subprocess
-import requests
 import json
 from datetime import datetime
 import threading

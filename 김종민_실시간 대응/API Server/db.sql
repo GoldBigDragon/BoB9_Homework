@@ -1,5 +1,6 @@
 # 아래 내용은 서버 비밀번호에 맞게 변경하여 실행하기!
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '본인 MySQL 계정 비밀번호';
+# ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '본인 MySQL 계정 비밀번호';
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';
 SET GLOBAL max_allowed_packet=67108864;
 
 CREATE DATABASE IF NOT EXISTS `realtimeResponse`;
@@ -79,6 +80,8 @@ CREATE TABLE IF NOT EXISTS `AccountActivity` (
 CREATE TABLE IF NOT EXISTS `SystemVersion` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `time` VARCHAR(20) NOT NULL DEFAULT '2021-01-01 00:00:00',
+  `externalIp` VARCHAR(40),
+  `localIp` VARCHAR(40),
   `systemVersion`LONGTEXT,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET='euckr';
@@ -100,11 +103,14 @@ CREATE TABLE IF NOT EXISTS `LastLog` (
 CREATE TABLE IF NOT EXISTS `WebLogs` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `time` VARCHAR(20) NOT NULL DEFAULT '2021-01-01 00:00:00',
-  `status` VARCHAR(3),
+  `ip` VARCHAR(40),
   `method` VARCHAR(10),
-  `user` LONGTEXT,
-  `message` LONGTEXT,
+  `param` LONGTEXT,
+  `ssl` VARCHAR(255),
+  `code` INT(11),
   `size` INT(11),
+  `path` LONGTEXT,
+  `datas` LONGTEXT,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET='euckr';
 
@@ -235,6 +241,16 @@ CREATE TABLE IF NOT EXISTS `Arp` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET='euckr';
 
+# 대상 : 파일
+# 기록 요지 : 파일 다운로드 큐
+CREATE TABLE IF NOT EXISTS `FileDownload` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `filePath` LONGTEXT,
+  `isDir` INT(11) DEFAULT 0,
+  `complete` INT(11) DEFAULT 0,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET='euckr';
+
 ALTER DATABASE `realtimeResponse` CHARACTER SET utf8 COLLATE utf8_general_ci;
 ALTER TABLE `Rootkit` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
 ALTER TABLE `History` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
@@ -244,13 +260,14 @@ ALTER TABLE `AccountActivity` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general
 ALTER TABLE `SystemVersion` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
 ALTER TABLE `LastLog` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
 ALTER TABLE `WebLogs` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
-ALTER TABLE `Logs` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `MajorLogs` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
 ALTER TABLE `FileTimeLogs` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
 ALTER TABLE `ProcessStatus` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
 ALTER TABLE `InternetConnection` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
 ALTER TABLE `SocketConnection` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
 ALTER TABLE `PacketTraffic` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
 ALTER TABLE `Arp` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `FileDownload` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 CREATE DATABASE IF NOT EXISTS `realtimeAttack`;
 USE `realtimeAttack`;

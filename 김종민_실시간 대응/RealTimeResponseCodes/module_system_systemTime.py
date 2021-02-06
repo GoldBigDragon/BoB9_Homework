@@ -20,7 +20,7 @@ def getCommandResult(command):
 def runThread():
     results = getCommandResult('date "+%Y-%m-%d %H:%M:%S"')
     sendApiServer(results)
-    threading.Timer(5, runThread).start()
+    threading.Timer(10, runThread).start()
 
 def sendApiServer(row):
     global subUrl
