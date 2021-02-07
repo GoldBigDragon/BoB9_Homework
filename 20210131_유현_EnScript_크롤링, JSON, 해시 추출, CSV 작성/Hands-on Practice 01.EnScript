@@ -1,0 +1,76 @@
+/*
+    선택한 파일로 부터 MD5, SHA1 해시를 추출 한 다음, 동일 파일 여부를 검사한 뒤
+	결과를 D:\\result.csv 에 저장하는 EnScript.
+*/
+class RyongHash {
+    String fileName;
+    String md5;
+    String sha1;
+    String path;
+
+    public RyongHash(EntryClass entry) {
+        this.fileName = entry.Name();
+        this.md5 = getMD5(entry);
+        this.sha1 = getSHA1(entry);
+        this.path = entry.TruePath();
+    }
+    public String getMD5(EntryClass entry){
+        SearchClass search();
+        HashClass hash = search.ComputeHash(entry);
+        if(hash.IsValid()) {
+            return hash;
+        }
+        return "UNKNOWN";
+    }
+    public String getSHA1(EntryClass entry){
+        EntryFileClass ef();
+        if (ef.Open(entry)) {
+            SHA1Class sha1();
+            ef.ComputeSHA1(sha1);
+            return sha1.GetString();
+        }
+        return "UNKNOWN";
+    }
+}
+
+class MainClass {
+    typedef RyongHash[] RyongHashArray;
+    void Main(CaseClass c) {
+        SystemClass::ClearConsole(SystemClass::SHOWCONSOLE);
+        RyongHashArray ryongArray();
+        for(ItemIteratorClass iter(c, 0, ItemIteratorClass::CURRENTVIEW_SELECTED); EntryClass entry = iter.GetNextEntry();) {
+            ryongArray.Add(new RyongHash(entry));
+        }
+        String csvPath = "D:\\result.csv";
+        LocalFileClass file = new LocalFileClass();
+        file.Open(csvPath, FileClass::WRITE + FileClass::TEXT);
+        file.WriteLine("Path\tName\tMD5\tSHA1\tSameFileName\tSameFilePath");
+        for(uint index = 0; index < ryongArray.Count(); index++) {
+            bool hasSame = false;
+            String sameFileName = "";
+            String sameFilePath = "";
+            Console.WriteLine(ryongArray[index].fileName + " : " + ryongArray[index].md5 + " / " + ryongArray[index].sha1);
+            for(uint index2 = 0; index2 < ryongArray.Count(); index2++) {
+                if (index != index2 && ryongArray[index].md5 == ryongArray[index2].md5 && ryongArray[index].sha1 == ryongArray[index2].sha1) {
+                    Console.WriteLine("Same File : " + ryongArray[index].fileName + " = " + ryongArray[index2].fileName);
+                    if(hasSame) {
+                        sameFileName += "，" + ryongArray[index].fileName;
+                        sameFilePath += "，" + ryongArray[index].path;
+                    } else {
+                        sameFileName += ryongArray[index].fileName;
+                        sameFilePath += ryongArray[index].path;
+                    }
+                    hasSame = true;
+                    // 동일한 파일이 여러개 있을 수도 있으므로, 하나 찾았다고 break 하지 않도록 한다!
+                }
+            }
+            if(hasSame) {
+                file.WriteLine(ryongArray[index].path+"\t"+ryongArray[index].fileName+"\t"+ryongArray[index].md5+"\t"+ryongArray[index].sha1+"\t"+sameFileName+"\t"+sameFilePath);
+            } else {
+                file.WriteLine(ryongArray[index].path+"\t"+ryongArray[index].fileName+"\t"+ryongArray[index].md5+"\t"+ryongArray[index].sha1+"\tNONE\tNONE");
+            }
+        }
+        file.Close();
+        Console.WriteLine("CSV file exported!");
+    }
+}
