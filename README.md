@@ -59,6 +59,14 @@
   - 메인 NPC와 엑스트라 NPC를 이용하여 퀘스트 제작하기.  
   - 제작 이후 추출된 DLL파일은 [구글 드라이브](https://drive.google.com/drive/folders/1CVIv9SjCdYxQjXRaGozjxEc6OAss376b "BoB9 MMORPG")에 업로드 하기.  
 ***
+`대기` `2021년 02월 8일 월요일 까지`  
+### Niko - Cloud Breach
+  - 본인이 선택한 토픽과 시나리오에 대하여 멘티들에게 한글로 간략히 발표한다.
+  - [AWS Insident Response Guide](https://d1.awsstatic.com/whitepapers/aws_security_incident_response.pdf "가이드라인")을 참고하기.  
+  - RunBook이나 PlayBook을 만드는 것도 좋으나, 모든걸 설명할 필요는 없다.  
+  - 명확하게 각 이벤트별 심플하게 설명하는 것이 좋다.  
+  - 나에게 주어진 주제 : Incident Response in the Cloud  
+***
 `완료` `2021년 02월 09일 화요일 까지`  
 ### 유현 - SecurityAI
   - [관련 학습 데이터](https://tinyurl.com/fs4elf9t "텍스트 파일")을 사용하여 언어 구분학습 코드 작성하기.  
@@ -99,14 +107,6 @@
   - 메시지박스 같은 것 띄울 필요 없음. 정상적인 64비트 PE파일만 생성하면 된다.
   - DLL 로딩 안 해도 됨.
   - Github찾아보면 제너레이터도 일부 구현되어있거나 구조도 나와 있음.
-***
-`대기` `2021년 02월 8일 월요일 까지`  
-### Niko - Cloud Breach
-  - 본인이 선택한 토픽과 시나리오에 대하여 멘티들에게 한글로 간략히 발표한다.
-  - [AWS Insident Response Guide](https://d1.awsstatic.com/whitepapers/aws_security_incident_response.pdf "가이드라인")을 참고하기.  
-  - RunBook이나 PlayBook을 만드는 것도 좋으나, 모든걸 설명할 필요는 없다.  
-  - 명확하게 각 이벤트별 심플하게 설명하는 것이 좋다.  
-  - 나에게 주어진 주제 : Incident Response in the Cloud  
 ***
 `완료` `2021년 02월 17일 수요일 까지`
 ### 곽경주 - Effective Yara
