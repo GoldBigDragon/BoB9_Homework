@@ -59,7 +59,7 @@
   - 메인 NPC와 엑스트라 NPC를 이용하여 퀘스트 제작하기.  
   - 제작 이후 추출된 DLL파일은 [구글 드라이브](https://drive.google.com/drive/folders/1CVIv9SjCdYxQjXRaGozjxEc6OAss376b "BoB9 MMORPG")에 업로드 하기.  
 ***
-`대기` `2021년 02월 8일 월요일 까지`  
+`완료` `2021년 02월 8일 월요일 까지`  
 ### Niko - Cloud Breach
   - 본인이 선택한 토픽과 시나리오에 대하여 멘티들에게 한글로 간략히 발표한다.
   - [AWS Insident Response Guide](https://d1.awsstatic.com/whitepapers/aws_security_incident_response.pdf "가이드라인")을 참고하기.  
