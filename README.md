@@ -196,4 +196,4 @@
   - 평가기준은 카카오톡으로 제안하기.  
 ***
 
-![BoB9기 교육을 통해 얻은 것](/BoB9기 교육을 통해 얻은 것.png "BoB9기 교육을 통해 얻은 것")  
+![BoB9기 교육을 통해 얻은 것](https://github.com/GoldBigDragon/BoB9_Homework/blob/main/BoB9%EA%B8%B0%20%EA%B5%90%EC%9C%A1%EC%9D%84%20%ED%86%B5%ED%95%B4%20%EC%96%BB%EC%9D%80%20%EA%B2%83.png "BoB9기 교육을 통해 얻은 것")  
