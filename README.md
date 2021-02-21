@@ -195,6 +195,6 @@
   - 이메일 양식 : [BoB9]T07_포렌식발표톤s2_포렌식_김태룡  
   - 평가기준은 카카오톡으로 제안하기.  
 ***
-[과제 총 65개 중 65개 제출 완료]
+[총 65개 과제 중 65개 제출 완료]
 
 ![BoB9기 교육을 통해 얻은 것](https://github.com/GoldBigDragon/BoB9_Homework/blob/main/BoB9%EA%B8%B0%20%EA%B5%90%EC%9C%A1%EC%9D%84%20%ED%86%B5%ED%95%B4%20%EC%96%BB%EC%9D%80%20%EA%B2%83.png "BoB9기 교육을 통해 얻은 것")  
