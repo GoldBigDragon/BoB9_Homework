@@ -30,6 +30,17 @@
   - C드라이브 아래 hosts 파일을 읽고, 콘솔에 라인 별로 출력하기.  
   - nationalAnthem.txt를 읽고 출력하기. (주의 : 문자 집합이 ‘한국어’이므로 ef.SetCodePage(949)를 사용해야함)  
 ***
+`완료` `2021년 01월 18일 월요일 까지`
+### 이경문 - packet-stat
+  - pcap file로부터 packet을 읽어서 IP별 송신 패킷 갯수, 수신 패킷 갯수, 송신 패킷 바이트, 수신 패킷 바이트를 출력하는 프로그램을 작성하라.  
+  - 메일 주소 : bob@gilgil.net  
+  - 메일 제목 : [bob9][포렌식]packet-stat[김태룡]  
+  - 학습 주제 :  
+    1. ipv4(uint32_t)를 key로 하여 검색하는 방법 이해.  
+    2. user defined class를 key로 하여 검색하는 방법 이해.  
+    3. composite key로 검색하는 방법 이해.  
+    4. conversation보다 flow로 처리하는 것이 더 효율적이다라는 것을 이해.  
+***
 `완료` `2021년 01월 21일 목요일 까지`
 ### 정승기 - Terraform
   - Terraform 설치  
@@ -195,6 +206,4 @@
   - 이메일 양식 : [BoB9]T07_포렌식발표톤s2_포렌식_김태룡  
   - 평가기준은 카카오톡으로 제안하기.  
 ***
-[총 65개 과제 중 65개 제출 완료]
-
 ![BoB9기 교육을 통해 얻은 것](https://github.com/GoldBigDragon/BoB9_Homework/blob/main/BoB9%EA%B8%B0%20%EA%B5%90%EC%9C%A1%EC%9D%84%20%ED%86%B5%ED%95%B4%20%EC%96%BB%EC%9D%80%20%EA%B2%83.png "BoB9기 교육을 통해 얻은 것")  
