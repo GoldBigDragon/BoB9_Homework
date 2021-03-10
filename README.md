@@ -13,9 +13,8 @@
 `완료` `2021년 01월 14일 목요일 까지`  
 ### Niko - CloudBreach
   1. Cloud breach관련 5분 발표 준비하기. (일반 BoB생들 앞에서 발표할 예정)
-  - 주제 정하고 나면 [주소](https://docs.google.com/spreadsheets/d/12uuadVE2W2zw6yC_XHbr4_JuEfQ3BeNdprTeaKPiCww/edit#gid=0 "AWS 강의 시트")의 K 컬럼에 적어두기  
   2. 슬라이드는 영어로 작성하되 발표는 한국어로 해도 된다.
-  3. 5분간 발표할 영문 자료를 2021.01.14. 까지 PDF로 [이 곳](https://drive.google.com/drive/u/1/folders/11qrCCHO5JymcboJUhBbsGvG9prNX-O2I "Google Drive")에 첨부한다.  
+  3. 5분간 발표할 영문 자료를 2021.01.14. 까지 PDF로 첨부한다.  
   4. 2021.01.14. 5분간 한국어로 발표할 준비를 한다.  
   5. 발표 자료에는 아래 내용이 포함되어야 한다.  
     5.a. 공격 시나리오 설명  
@@ -49,14 +48,12 @@
 ***
 `완료` `2021년 01월 30일 토요일 까지`
 ### 강대명 - 대규모 웹 서비스 개발
-  - 제출 Email : charsyam@naver.com  
   - 메일 양식 : [BOB9] \[트랙명:이름\] #1 ShortUrl 아키텍처  
   - 주제 : ShortURL 서버가 어떤 식으로 구성될 것이며, 각각이 죽었을 때 어떻게 구동될지 자유로이 적어보기  
 ***
 `완료` `2021년 01월 31일 일요일 까지`  
 ### 유현 - EnScript
 - 수업자료에 첨부된 PDF의 File Parse, Hand-on Practice 내용 모두 EnScript로 작성 해 보기.  
-- 제출 이메일 : cyberlab.prof@gmail.com  
 - 제출 기한 : 2021.01.31. 까지  
 - 항목 :  
   - 파일로 부터 MD5, SHA1 계산 후, CSV파일로 추출하기  
@@ -68,7 +65,7 @@
 `완료` `2021년 02월 04일 목요일 까지`  
 ### 전상현 - C++ 프로그래밍과 API 사용
   - 메인 NPC와 엑스트라 NPC를 이용하여 퀘스트 제작하기.  
-  - 제작 이후 추출된 DLL파일은 [구글 드라이브](https://drive.google.com/drive/folders/1CVIv9SjCdYxQjXRaGozjxEc6OAss376b "BoB9 MMORPG")에 업로드 하기.  
+  - 제작 이후 추출된 DLL파일은 업로드 하기.  
 ***
 `완료` `2021년 02월 8일 월요일 까지`  
 ### Niko - Cloud Breach
@@ -105,7 +102,6 @@
 시연 영상 및 프로그램 다운로드 : https://tinyurl.com/y2ehysbr
 ### 최원영 - PE Generator
   - 목표 : PE파일(x64)을 생성하는 프로그램 만들기
-  - 제출방법 : fl0ckfl0ck@hotmail.com
   - 이메일 제목 : [BoB9 디포경연] PE Generator_[이름]
   - 제출사항 : 소스코드, 실행파일, 결과물 시연 영상
   - 평가요소 :  
@@ -124,7 +120,6 @@
   - 주어진 샘플들을 모두 탐지할 수 있는 야라룰을 작성합니다.  
   - 룰의 개수가 적고 창의적일수록 높은 점수를 획득합니다.  
   - [악성코드](https://mega.nz/file/opQFCSpT#yIG97HKRNE7FgmG5IXzK5SBP4GP3jpfDLcPIe2OOu2E "비밀번호 : infected")를 다운로드 받고, VMware에서 실행 할 것.  
-  - 제출 Email : kjkwak12@gmail.com (연락처 : 010-2814-4679)  
   - ICON 확인하는 방법도 사용 해 볼 것.  
 ***
 `완료` `2021년 02월 17일 수요일 까지`
@@ -177,7 +172,6 @@
   - 공격 전략 생각하기  
   - 공격 모듈 실행파일 생성 및 정상 구동 테스트하기  
   - 실시간공격/대응 보고서 작성 및 제출하기.  
-  - [노션 페이지1](https://www.notion.so/1-a30e849a5b994a9a8a735e2650b2cbb7 "1차") [노션 페이지2](https://www.notion.so/2-7c5eb300817249e782063e28338dc21c "2차")  
 ***
 `완료` `2021년 02월 19일 금요일 까지`  
 ### 3단계 수업 및 과제에 대한 10분 발표 주제 선정  
@@ -194,10 +188,9 @@
 ***
 `완료` `2021년 02월 21일 일요일 까지`  
 ### 박문범 - 피해 PC 분석 및 보고서 작성  
-  - 침해당한 [윈도우 10 가상머신](https://drive.google.com/file/d/1ZCWU1mSyANrLlZLV7Nhn1vEV0aeJG6SS/view?usp=sharing "10GB")을 분석하여 보고서를 제출한다.  
+  - 침해당한 윈도우 10 가상머신을 분석하여 보고서를 제출한다.  
   - 양식 : 자율  
   - 제출 기한 : 2월 21일(일) 10:00  
-  - 제출 주소 : neotra@gmail.com  
 ***
 `완료` `2021년 02월 21일 일요일 까지`  
 ### 3단계 수업 및 과제에 대한 10분 발표
